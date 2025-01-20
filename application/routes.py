@@ -9,3 +9,15 @@ courseData = [{"courseID":"1111","title":"PHP 111","description":"Intro to PHP",
 def index():
     return render_template("index.html", index=True )
 
+@app.route("/login")
+def login():
+    return render_template("login.html", login=True )
+
+@app.route("/courses/")
+@app.route("/courses/<term>")
+def courses(term="Spring 2019"):
+    return render_template("courses.html", courseData=courseData, courses = True, term=term )
+
+@app.route("/register")
+def register():
+    return render_template("register.html", register=True)
