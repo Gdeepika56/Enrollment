@@ -21,3 +21,20 @@ def courses(term="Spring 2019"):
 @app.route("/register")
 def register():
     return render_template("register.html", register=True)
+
+@app.route("/enrollment", methods=["GET","POST"])
+def enrollment():
+    id = request.form.get('courseID')
+    title = request.form['title']
+    term = request.form.get('term')
+    return render_template("enrollment.html", enrollment=True, data={"id":id,"title":title,"term":term})    
+
+@app.route("/api/")
+@app.route("/api/<idx>")
+def api(idx=None):
+    if(idx == None):
+        jdata = courseData
+    else:
+        jdata = courseData[int(idx)]
+    
+    return Response(json.dumps(jdata), mimetype="application/json")
