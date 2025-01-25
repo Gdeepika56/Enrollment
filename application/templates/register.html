@@ -2,13 +2,13 @@
 {% extends "layout.html" %}
    
 {% block content %}
-<h2>New User Registration</h2>
+<h1>{{title}}</h1>
 
 <div class="container">
     <form name="register" action="" method="get">
 
         <fieldset class="form/-group">
-            <legend>{{title}}</legend>
+            <!-- <legend>{{title}}</legend> -->
             {{ form.hidden_tag() }}
                 <p>
                     {{ form.email.label }}<br>
@@ -28,7 +28,7 @@
 
                 <p>
                     {{ form.password_confirm.label }}<br>
-                    {{ form.password_confrim }}
+                    {{ form.password_confirm }}
                     {% for error in form.password_confirm.errors %}
                         <span class="error-message">{{ error }}</span>
                     {% endfor %}
