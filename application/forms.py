@@ -12,7 +12,7 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired(),Length(min=6,max=15)])
-    password_confrim = PasswordField('Confrim Password', validators=[DataRequired(), Length(min=6,max=15), EqualTo('password')])
+    password_confirm = PasswordField('Confrim Password', validators=[DataRequired(), Length(min=6,max=15), EqualTo('password')])
     first_name = PasswordField('First Name', validators=[DataRequired()])
     last_name = PasswordField('Last Name', validators=[DataRequired()])
     submit = SubmitField('Register Now')    
