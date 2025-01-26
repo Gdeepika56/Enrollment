@@ -66,45 +66,40 @@ def enrollment():
             flash(f"Oops! You are already registered in this course {courseTitle}!", "danger")
             return redirect(url_for('courses'))
         else:
-            Enrollment(user_id=user_id, courseID=courseID)
+            Enrollment(user_id=user_id, courseID=courseID).save()
             flash(f"You have successfully registered in the course {courseTitle}", "success")
 
     classes = list(User.objects.aggregate(*[
     {
         '$lookup': {
-            'from': 'enrollment',
-            'localField': 'user_id',
-            'foreignField': 'courseID',
+            'from': 'enrollment', 
+            'localField': 'user_id', 
+            'foreignField': 'user_id', 
             'as': 'r1'
         }
-    },
-    {
+    }, {
         '$unwind': {
-            'path': '$r1',
-            'includeArrayIndex': 'r1_id',
+            'path': '$r1', 
+            'includeArrayIndex': 'r1_id', 
             'preserveNullAndEmptyArrays': False
         }
-    },
-    {
+    }, {
         '$lookup': {
-            'from': 'course',
-            'localField': 'r1.courseID',
-            'foreignField': 'courseID',
+            'from': 'course', 
+            'localField': 'r1.courseID', 
+            'foreignField': 'courseID', 
             'as': 'r2'
         }
-    },
-    {
+    }, {
         '$unwind': {
-            'path': '$r2',
+            'path': '$r2', 
             'preserveNullAndEmptyArrays': False
         }
-    },
-    {
+    }, {
         '$match': {
             'user_id': user_id
         }
-    },
-    {
+    }, {
         '$sort': {
             'courseID': 1
         }
